@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'Raleway-VariableFont_wght';
+    src: url('fonts/Raleway-VariableFont_wght.ttf');
+  }
+
+body {
+    color: #fff;
+    background-color: #222;
+    font-family: 'Raleway-VariableFont_wght';
+    text-align: center;
+}
+
+button {
+    border-width: 1px;
+    background-color: #111;
+    padding: 5px;
+    color: #fff;
+    font-family: 'Raleway-VariableFont_wght';
+    border-radius: 10px;
+    font-size: 15px;
+    margin: 5px;
+}
+button:hover {
+    background-color: #533;
+}
+button.arrow {
+    width: 50px;
+    font-size: 25px;
+}
+
+img#image-view {
+    margin: 0px;
+    width: 400px;
+}
+
+div.vstack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+div.hstack {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+input {
+    color: #fff;
+    background-color: #111;
+    font-size: 20px;
+    border-radius: 10px;
+    border-width: 1px;
+    margin: 5px;
+    padding: 3px;
+    width: 300px;
+    text-align: center;
+}
+
+input:focus {
+    outline: none;
+    background-color: #533; !important;
+}
+
+#autocomplete {}
+
+.ui-autocomplete {
+    width: 200px; /* Set a fixed width */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    position: static !important; /* Override position */
+    list-style-type: none;
+}
+
+.ui-menu-item-wrapper {
+    background-color: #000;
+    color: #fff;
+    cursor: default;
+}
+.ui-menu-item-wrapper.ui-state-active {
+    background-color: #533;        
+}
+.ui-helper-hidden-accessible {
+    display: none !important;
+}
