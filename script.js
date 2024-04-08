@@ -22,7 +22,7 @@ function updateImg() {
     ui('image-file-name').textContent = imgFile.name;
     ui('classInput').value = state.annotations[imgFile.name] || '';
 }
-function downloadAnnotations() {    
+function downloadAnnotations() {
     const json = JSON.stringify(state.annotations);
     const blob = new Blob([json], {type: "application/json"});
     const url = URL.createObjectURL(blob);
@@ -31,7 +31,6 @@ function downloadAnnotations() {
     a.download = 'annotations.json';
     a.click();
 }
-
 function updateAutocomplete() {
     const availableTags = [
 	"ActionScript",
@@ -81,3 +80,19 @@ function applyAnnotation() {
     updateAutocomplete();
     nextImg();
 }
+function init() {
+    window.addEventListener('keydown', function(e) {
+	switch(e.key) {
+	case 'ArrowLeft':
+            e.preventDefault();
+            previousImg();
+            break;
+	case 'ArrowRight':
+            e.preventDefault();
+            nextImg();
+            break;
+	}
+    });
+}
+
+init();
