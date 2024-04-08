@@ -28,7 +28,7 @@ function downloadAnnotations() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = (ui('folder-upload').files.length == 0) ?  'annotations.json'
+    a.download = (ui('folder-upload').files.length == 0) ? 'annotations.json'
 	: ui('folder-upload').files[0].name.split('_').splice(0, 2).join('_') + '.json';
     a.click();
 }
