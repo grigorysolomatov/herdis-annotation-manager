@@ -1,13 +1,14 @@
 const state = {
     imgIdx: 0,
     annotations: {},
+    files: [],
 };
 
 function ui(id) {
     return document.getElementById(id);
 }
 function nextImg() {
-    state.imgIdx = Math.min(state.imgIdx + 1, ui('folder-upload').files.length);0    
+    state.imgIdx = Math.min(state.imgIdx + 1, state.files.length);
     updateImg();
 }
 function previousImg() {
@@ -15,9 +16,9 @@ function previousImg() {
     updateImg();
 }
 function updateImg() {
-    if (ui('folder-upload').files.length === 0) {return;}
+    if (state.files.length === 0) {return;}
     
-    imgFile = ui('folder-upload').files[state.imgIdx];    
+    const imgFile = state.files[state.imgIdx];
     ui('image-view').src = URL.createObjectURL(imgFile);
     ui('image-file-name').textContent = imgFile.name;
     ui('classInput').value = state.annotations[imgFile.name] || '';
@@ -28,35 +29,11 @@ function downloadAnnotations() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = (ui('folder-upload').files.length == 0) ? 'annotations.json'
-	: ui('folder-upload').files[0].name.split('_').splice(0, 2).join('_') + '.json';
+    a.download = (state.files.length == 0) ? 'annotations.json'
+	: state.files[0].name.split('_').splice(0, 2).join('_') + '.json';
     a.click();
 }
-function updateAutocomplete() {
-    const availableTags = [
-	"ActionScript",
-	"AppleScript",
-	"Asp",
-	"BASIC",
-	"C",
-	"C++",
-	"Clojure",
-	"COBOL",
-	"ColdFusion",
-	"Erlang",
-	"Fortran",
-	"Groovy",
-	"Haskell",
-	"Java",
-	"JavaScript",
-	"Lisp",
-	"Perl",
-	"PHP",
-	"Python",
-	"Ruby",
-	"Scala",
-	"Scheme"
-    ];
+function updateAutocomplete() {    
     const suggestions = [... new Set (Object.values(state.annotations))];
     suggestions.sort();
     
@@ -69,11 +46,10 @@ function updateAutocomplete() {
     });
 }
 function applyAnnotation() {
-    if (ui('folder-upload').files.length === 0) {return;}
+    if (state.files.length === 0) {return;}
     
-    const imgFile = ui('folder-upload').files[state.imgIdx];
+    const imgFile = state.files[state.imgIdx];
     
-    console.log('Hi')
     if (ui('classInput').value.trim() !== '') {
 	state.annotations[imgFile.name] = ui('classInput').value || '';
     }
@@ -94,6 +70,12 @@ function init() {
             break;
 	}
     });
+}
+function uploadFolder() {
+    state.files = Array.from(ui('folder-upload').files).sort(
+	(file1, file2) => file2.size - file1.size
+    );
+    updateImg();
 }
 
 init();
