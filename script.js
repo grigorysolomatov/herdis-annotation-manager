@@ -21,6 +21,7 @@ function updateImg() {
     const imgFile = state.files[state.imgIdx];
     ui('image-view').src = URL.createObjectURL(imgFile);
     ui('image-file-name').textContent = imgFile.name;
+    ui('image-count').textContent = `${state.imgIdx+1}/${state.files.length}`;
     ui('classInput').value = state.annotations[imgFile.name] || '';
 }
 function downloadAnnotations() {
