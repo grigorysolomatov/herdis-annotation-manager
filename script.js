@@ -72,10 +72,23 @@ function init() {
     });
 }
 function uploadFolder() {
-    state.files = Array.from(ui('folder-upload').files).sort(
+    state.files = Array.from(ui('upload-folder').files).sort(
 	(file1, file2) => file2.size - file1.size
     );
     updateImg();
+}
+function uploadAnnotation() {
+    const file = ui('upload-annotation').files[0];
+    
+    const reader = new FileReader();    
+    reader.onload = (event) => {
+	const contents = event.target.result;
+	state.annotations = {...JSON.parse(contents), ...state.annotations};
+    };
+    reader.onerror = (event) => {
+	console.error("File could not be read! Code " + event.target.error.code);
+    };
+    reader.readAsText(file);
 }
 
 init();
